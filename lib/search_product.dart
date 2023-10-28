@@ -77,11 +77,34 @@ class _ProductsPageState extends State<ProductsPage> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       Product product = snapshot.data![index];
-                      return ListTile(
-                        leading: Image.network(product.thumbnail),
-                        title: Text(product.title),
-                        subtitle: Text(product.description),
-                        trailing: Text('\$${product.price.toStringAsFixed(2)}'),
+                      return Dismissible(
+                        key: Key(product.id
+                            .toString()), // Unique key for Dismissible
+                        direction: DismissDirection.endToStart,
+                        onDismissed: (direction) {
+                          // Remove the item from the data source.
+                          setState(() {
+                            snapshot.data!.removeAt(index);
+                          });
+
+                          // Optionally, inform the user with a SnackBar.
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Deleted ${product.title}')),
+                          );
+                        },
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Icon(Icons.delete, color: Colors.white),
+                        ),
+                        child: ListTile(
+                          leading: Image.network(product.thumbnail),
+                          title: Text(product.title),
+                          subtitle: Text(product.description),
+                          trailing:
+                              Text('\$${product.price.toStringAsFixed(2)}'),
+                        ),
                       );
                     },
                   );
