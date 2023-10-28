@@ -43,6 +43,7 @@ class _ProductsPageState extends State<ProductsPage> {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
+                // for each data
                 Product product = snapshot.data![index];
                 return ListTile(
                   leading: Image.network(product.thumbnail),
