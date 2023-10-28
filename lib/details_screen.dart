@@ -6,7 +6,7 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Details')),
       body: Center(
-        child: Text('This is the details screen!'),
+        child: Image.asset('assets/images/bird.jpg'),
       ),
     );
   }
